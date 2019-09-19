@@ -1,6 +1,7 @@
 package com.shaz.talbook.ui.post
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,8 +37,8 @@ class CommentActivity : BaseActivity() {
     }
 
     override fun unbindExtras(bundle: Bundle) {
-        if (bundle.containsKey(AppConstants.EXTRA_POST_DATA)) {
-            post = bundle.getParcelable(AppConstants.EXTRA_POST_DATA)
+        if (bundle.containsKey(AppConstants.EXTRA_DATA)) {
+            post = bundle.getParcelable(AppConstants.EXTRA_DATA)
             return
         }
         finish()
@@ -86,11 +87,11 @@ class CommentActivity : BaseActivity() {
 
     private fun initRecyclerView() {
         commentAdapter = CommentAdapter(items, object : ItemListener<Comment> {
-            override fun onItemClick(position: Int, data: Comment) {
+            override fun onItemClick(position: Int, data: Comment, view: View) {
 
             }
 
-            override fun onItemLongClick(position: Int, data: Comment) {
+            override fun onItemLongClick(position: Int, data: Comment, view: View) {
             }
 
         })

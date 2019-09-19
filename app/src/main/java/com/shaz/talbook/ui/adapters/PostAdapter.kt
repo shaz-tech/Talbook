@@ -42,7 +42,7 @@ class PostAdapter(private val items: List<Post>, private val listener: ItemListe
 
         init {
             itemView.comment.setOnClickListener {
-                listener.onItemClick(adapterPosition, data)
+                listener.onItemClick(adapterPosition, data, it)
             }
         }
 

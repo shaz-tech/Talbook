@@ -41,7 +41,7 @@ class AlbumAdapter(private val items: List<Album>, private val listener: ItemLis
 
         init {
             itemView.layout_album_item.setOnClickListener {
-                listener.onItemClick(adapterPosition, data)
+                listener.onItemClick(adapterPosition, data, it)
             }
         }
 

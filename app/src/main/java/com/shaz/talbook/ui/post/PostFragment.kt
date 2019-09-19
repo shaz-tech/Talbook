@@ -65,11 +65,11 @@ class PostFragment : BaseFragment() {
 
     private fun initRecyclerView(view: View) {
         contentAdapter = PostAdapter(items, object : ItemListener<Post> {
-            override fun onItemClick(position: Int, data: Post) {
-                openCommentActivity(position, data)
+            override fun onItemClick(position: Int, data: Post, view: View) {
+                openCommentActivity(position, data, view)
             }
 
-            override fun onItemLongClick(position: Int, data: Post) {
+            override fun onItemLongClick(position: Int, data: Post, view: View) {
             }
 
         })
@@ -101,9 +101,9 @@ class PostFragment : BaseFragment() {
         )
     }
 
-    private fun openCommentActivity(position: Int, data: Post) {
+    private fun openCommentActivity(position: Int, data: Post, view: View) {
         val intent = Intent(context, CommentActivity::class.java)
-        intent.putExtra(AppConstants.EXTRA_POST_DATA, data)
+        intent.putExtra(AppConstants.EXTRA_DATA, data)
         startActivity(intent)
     }
 }

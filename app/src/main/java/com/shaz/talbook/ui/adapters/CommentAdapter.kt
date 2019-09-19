@@ -44,7 +44,7 @@ class CommentAdapter(
 
         init {
             itemView.layout_comment_item.setOnClickListener {
-                listener.onItemClick(adapterPosition, data)
+                listener.onItemClick(adapterPosition, data, it)
             }
         }
 

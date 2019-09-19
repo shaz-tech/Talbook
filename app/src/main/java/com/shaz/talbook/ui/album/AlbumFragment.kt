@@ -14,7 +14,6 @@ import com.shaz.talbook.models.ResourceStatus
 import com.shaz.talbook.ui.BaseFragment
 import com.shaz.talbook.ui.adapters.AlbumAdapter
 import com.shaz.talbook.ui.listeners.ItemListener
-import com.shaz.talbook.ui.post.CommentActivity
 import com.shaz.talbook.utils.AppConstants
 import kotlinx.android.synthetic.main.fragment_album.*
 import kotlinx.android.synthetic.main.fragment_album.view.*
@@ -66,11 +65,11 @@ class AlbumFragment : BaseFragment() {
 
     private fun initRecyclerView(view: View) {
         contentAdapter = AlbumAdapter(items, object : ItemListener<Album> {
-            override fun onItemClick(position: Int, data: Album) {
-                openCommentActivity(position, data)
+            override fun onItemClick(position: Int, data: Album, view: View) {
+                openPhotoActivity(position, data, view)
             }
 
-            override fun onItemLongClick(position: Int, data: Album) {
+            override fun onItemLongClick(position: Int, data: Album, view: View) {
             }
 
         })
@@ -102,9 +101,9 @@ class AlbumFragment : BaseFragment() {
         )
     }
 
-    private fun openCommentActivity(position: Int, data: Album) {
-        /*val intent = Intent(context, CommentActivity::class.java)
-        intent.putExtra(AppConstants.EXTRA_POST_DATA, data)
-        startActivity(intent)*/
+    private fun openPhotoActivity(position: Int, data: Album, view: View) {
+        val intent = Intent(context, PhotoActivity::class.java)
+        intent.putExtra(AppConstants.EXTRA_DATA, data)
+        startActivity(intent)
     }
 }

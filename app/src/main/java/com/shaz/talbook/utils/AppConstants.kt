@@ -8,5 +8,5 @@ object AppConstants {
     const val BASE_URL: String = "https://jsonplaceholder.typicode.com/"
 
     /*Intent data*/
-    val EXTRA_POST_DATA = "key:extra-post-data"
+    val EXTRA_DATA = "key:extra-data"
 }
