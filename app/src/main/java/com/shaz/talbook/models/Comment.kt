@@ -5,22 +5,26 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+
 /**
- * Created by Shahbaz Akhtar on 15-09-2019.
+ * Created by Shahbaz Akhtar on 18-09-2019.
  * @author Shahbaz Akhtar
  */
 @Parcelize
-data class Post(
-    @SerializedName("userId")
+data class Comment(
+    @SerializedName("postId")
     @Expose
-    var userId: Int,
+    var postId: Int? = null,
     @SerializedName("id")
     @Expose
-    var id: Int,
-    @SerializedName("title")
+    var id: Int? = null,
+    @SerializedName("name")
     @Expose
-    var title: String,
+    var name: String? = null,
+    @SerializedName("email")
+    @Expose
+    var email: String? = null,
     @SerializedName("body")
     @Expose
     var body: String? = null
-): Parcelable
+) : Parcelable

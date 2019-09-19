@@ -22,6 +22,10 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
@@ -67,4 +71,9 @@ dependencies {
     // Layout state
     def stateful_layout = "1.2.1"
     implementation "com.github.gturedi:stateful-layout:$stateful_layout"
+
+    // Navigation
+    def nav_version = "2.1.0"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }

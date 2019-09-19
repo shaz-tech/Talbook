@@ -12,28 +12,29 @@
     app:cardUseCompatPadding="true"
     app:contentPadding="@dimen/standard_margin_half">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/layout_post_item"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_comment_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_post_item_title"
-            style="@style/App.Item.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_post_item_body"
+            android:id="@+id/tv_comment_item_body"
             style="@style/App.Item.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/lsc"
-            layout="@layout/layout_like_share_comment" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_comment_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLength="20"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_comment_item_body" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

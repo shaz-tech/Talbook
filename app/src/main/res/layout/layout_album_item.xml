@@ -13,24 +13,24 @@
     app:contentPadding="@dimen/standard_margin_half">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/layout_post_item"
+        android:id="@+id/layout_album_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:minHeight="200dp"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_post_item_title"
-            style="@style/App.Item.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_post_item_body"
+            android:id="@+id/tv_album_item_title"
             style="@style/App.Item.Subtitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp" />
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/lsc"

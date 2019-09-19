@@ -1,7 +1,10 @@
 package com.shaz.talbook.di.main
 
-import com.shaz.talbook.data.remote.PostApiService
+import com.shaz.talbook.data.remote.MainApiService
+import com.shaz.talbook.data.remote.UserApiService
+import com.shaz.talbook.data.repository.AlbumRepository
 import com.shaz.talbook.data.repository.PostRepository
+import com.shaz.talbook.data.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -15,17 +18,41 @@ class MainModule {
 
     @MainScope
     @Provides
-    fun provideMainApiService(retrofitBuilder: Retrofit.Builder): PostApiService {
+    fun provideMainApiService(retrofitBuilder: Retrofit.Builder): MainApiService {
         return retrofitBuilder
             .build()
-            .create(PostApiService::class.java)
+            .create(MainApiService::class.java)
     }
 
     @MainScope
     @Provides
-    fun provideCreateBlogRepository(
-        postApiService: PostApiService
+    fun provideUserApiService(retrofitBuilder: Retrofit.Builder): UserApiService {
+        return retrofitBuilder
+            .build()
+            .create(UserApiService::class.java)
+    }
+
+    @MainScope
+    @Provides
+    fun providePostRepository(
+        mainApiService: MainApiService
     ): PostRepository {
-        return PostRepository(postApiService)
+        return PostRepository(mainApiService)
+    }
+
+    @MainScope
+    @Provides
+    fun provideAlbumRepository(
+        mainApiService: MainApiService
+    ): AlbumRepository {
+        return AlbumRepository(mainApiService)
+    }
+
+    @MainScope
+    @Provides
+    fun provideUserRepository(
+        userApiService: UserApiService
+    ): UserRepository {
+        return UserRepository(userApiService)
     }
 }

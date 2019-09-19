@@ -14,7 +14,7 @@ import javax.inject.Inject
  */
 class PostViewModel @Inject constructor(private val postRepository: PostRepository) : ViewModel() {
 
-    private val content = MutableLiveData<ResourceStatus<List<Post>>>()
+    private val postLiveData = MutableLiveData<ResourceStatus<List<Post>>>()
 
     init {
         print("PostViewModel initialized")
@@ -22,17 +22,17 @@ class PostViewModel @Inject constructor(private val postRepository: PostReposito
     }
 
     fun pullPosts() {
-        content.value = ResourceStatus.Loading()
+        postLiveData.value = ResourceStatus.Loading()
         postRepository.getPosts(
             {
-                content.value = ResourceStatus.Success(it)
+                postLiveData.value = ResourceStatus.Success(it)
             }, {
-                content.value = ResourceStatus.Error(it)
+                postLiveData.value = ResourceStatus.Error(it)
             }
         )
     }
 
     fun getPostLiveData(): LiveData<ResourceStatus<List<Post>>> {
-        return content
+        return postLiveData
     }
 }

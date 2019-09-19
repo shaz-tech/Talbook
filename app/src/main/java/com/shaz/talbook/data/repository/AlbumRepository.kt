@@ -1,23 +1,23 @@
 package com.shaz.talbook.data.repository
 
 import com.shaz.talbook.data.remote.MainApiService
-import com.shaz.talbook.models.Comment
-import com.shaz.talbook.models.Post
+import com.shaz.talbook.models.Album
+import com.shaz.talbook.models.Photo
 import com.shaz.talbook.utils.NetworkCallback
 import retrofit2.Call
 import retrofit2.Response
 import javax.inject.Inject
 
 /**
- * Created by Shahbaz Akhtar on 16-09-2019.
+ * Created by Shahbaz Akhtar on 19-09-2019.
  * @author Shahbaz Akhtar
  */
-class PostRepository @Inject constructor(private val mainApiService: MainApiService) {
+class AlbumRepository @Inject constructor(private val mainApiService: MainApiService) {
 
-    fun getPosts(success: (List<Post>) -> Unit, failure: (String) -> Unit) {
-        mainApiService.getPosts().enqueue(object : NetworkCallback<List<Post>>() {
+    fun getAlbums(success: (List<Album>) -> Unit, failure: (String) -> Unit) {
+        mainApiService.getAlbums().enqueue(object : NetworkCallback<List<Album>>() {
 
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+            override fun onResponse(call: Call<List<Album>>, response: Response<List<Album>>) {
                 super.onResponse(call, response)
                 response.body()?.let {
                     success(it)
@@ -26,7 +26,7 @@ class PostRepository @Inject constructor(private val mainApiService: MainApiServ
                 }
             }
 
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Album>>, t: Throwable) {
                 super.onFailure(call, t)
                 t.message?.let {
                     failure(it)
@@ -35,10 +35,10 @@ class PostRepository @Inject constructor(private val mainApiService: MainApiServ
         })
     }
 
-    fun getComments(postId: Int, success: (List<Comment>) -> Unit, failure: (String) -> Unit) {
-        mainApiService.getComments(postId).enqueue(object : NetworkCallback<List<Comment>>() {
+    fun getPhotos(albumId: Int, success: (List<Photo>) -> Unit, failure: (String) -> Unit) {
+        mainApiService.getPhotos(albumId).enqueue(object : NetworkCallback<List<Photo>>() {
 
-            override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
+            override fun onResponse(call: Call<List<Photo>>, response: Response<List<Photo>>) {
                 super.onResponse(call, response)
                 response.body()?.let {
                     success(it)
@@ -47,7 +47,7 @@ class PostRepository @Inject constructor(private val mainApiService: MainApiServ
                 }
             }
 
-            override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Photo>>, t: Throwable) {
                 super.onFailure(call, t)
                 t.message?.let {
                     failure(it)

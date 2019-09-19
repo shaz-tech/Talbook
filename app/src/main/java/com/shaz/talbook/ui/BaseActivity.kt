@@ -17,6 +17,8 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     @LayoutRes
     protected abstract fun bindLayout(): Int
+
+    protected abstract fun unbindExtras(bundle: Bundle)
     protected abstract fun initLayouts()
     protected abstract fun bindViewModel()
     protected abstract fun subscribeObservers()
@@ -24,6 +26,9 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(bindLayout())
+        intent.extras?.let {
+            unbindExtras(it)
+        }
         initLayouts()
         bindViewModel()
         subscribeObservers()

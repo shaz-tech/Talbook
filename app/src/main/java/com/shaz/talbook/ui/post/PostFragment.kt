@@ -1,5 +1,8 @@
 package com.shaz.talbook.ui.post
 
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,15 +11,18 @@ import com.gturedi.views.CustomStateOptions
 import com.shaz.talbook.R
 import com.shaz.talbook.models.Post
 import com.shaz.talbook.models.ResourceStatus
-import com.shaz.talbook.ui.BaseActivity
+import com.shaz.talbook.ui.BaseFragment
 import com.shaz.talbook.ui.adapters.PostAdapter
-import kotlinx.android.synthetic.main.activity_post.*
+import com.shaz.talbook.ui.listeners.ItemListener
+import com.shaz.talbook.utils.AppConstants
+import kotlinx.android.synthetic.main.fragment_post.*
+import kotlinx.android.synthetic.main.fragment_post.view.*
 
 /**
- * Created by Shahbaz Akhtar on 15-09-2019.
+ * Created by Shahbaz Akhtar on 19-09-2019.
  * @author Shahbaz Akhtar
  */
-class PostActivity : BaseActivity() {
+class PostFragment : BaseFragment() {
 
     private lateinit var viewModel: PostViewModel
 
@@ -24,16 +30,24 @@ class PostActivity : BaseActivity() {
     private lateinit var contentAdapter: PostAdapter
 
     override fun bindLayout(): Int {
-        return R.layout.activity_post
+        return R.layout.fragment_post
     }
 
-    override fun initLayouts() {
-        stateful_layout.isAnimationEnabled = true
-        initRecyclerView()
+    override fun unbindArguments(bundle: Bundle) {
+
+    }
+
+    override fun initLayouts(view: View): View {
+        view.stateful_layout.isAnimationEnabled = true
+        initRecyclerView(view)
+        return view
     }
 
     override fun bindViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PostViewModel::class.java)
+        viewModel =
+            activity?.run {
+                ViewModelProviders.of(this, viewModelFactory).get(PostViewModel::class.java)
+            } ?: throw Exception("Invalid Activity")
     }
 
     override fun subscribeObservers() {
@@ -49,10 +63,19 @@ class PostActivity : BaseActivity() {
         })
     }
 
-    private fun initRecyclerView() {
-        contentAdapter = PostAdapter(items)
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        recyclerView.adapter = contentAdapter
+    private fun initRecyclerView(view: View) {
+        contentAdapter = PostAdapter(items, object : ItemListener<Post> {
+            override fun onItemClick(position: Int, data: Post) {
+                openCommentActivity(position, data)
+            }
+
+            override fun onItemLongClick(position: Int, data: Post) {
+            }
+
+        })
+        view.recyclerView.layoutManager =
+            LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        view.recyclerView.adapter = contentAdapter
     }
 
     private fun updateList(posts: List<Post>) {
@@ -76,5 +99,11 @@ class PostActivity : BaseActivity() {
                 .buttonText(getString(R.string.retry))
                 .buttonClickListener { viewModel.pullPosts() }
         )
+    }
+
+    private fun openCommentActivity(position: Int, data: Post) {
+        val intent = Intent(context, CommentActivity::class.java)
+        intent.putExtra(AppConstants.EXTRA_POST_DATA, data)
+        startActivity(intent)
     }
 }

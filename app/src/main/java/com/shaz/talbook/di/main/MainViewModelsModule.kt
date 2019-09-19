@@ -2,6 +2,8 @@ package com.shaz.talbook.di.main
 
 import androidx.lifecycle.ViewModel
 import com.shaz.talbook.di.ViewModelKey
+import com.shaz.talbook.ui.album.AlbumViewModel
+import com.shaz.talbook.ui.post.CommentViewModel
 import com.shaz.talbook.ui.post.PostViewModel
 import dagger.Binds
 import dagger.Module
@@ -17,5 +19,15 @@ abstract class MainViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(PostViewModel::class)
-    abstract fun bindMainViewModel(viewModel: PostViewModel): ViewModel
+    abstract fun bindPostViewModel(viewModel: PostViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CommentViewModel::class)
+    abstract fun bindCommentViewModel(viewModel: CommentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AlbumViewModel::class)
+    abstract fun bindAlbumViewModel(viewModel: AlbumViewModel): ViewModel
 }
